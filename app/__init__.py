@@ -9,7 +9,7 @@ __author__ = '朝文天下'
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__,template_folder='templates')
     app.config.from_object('app.secure')
     app.config.from_object('app.setting')
     register_blueprint(app)
