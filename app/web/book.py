@@ -35,6 +35,7 @@ def search():
     page = form.page.data
     isbn_or_key = is_isbn_or_key(q)
     yushu_book = YuShuBook()
-    result = yushu_book.search_by_isbn(q) if isbn_or_key == 'isbn' else yushu_book.search_by_keyword(q, page)
-    books.fill(result, q)
-    return json.dumps(books, default=lambda o: o.__dict__)
+    yushu_book.search_by_isbn(q) if isbn_or_key == 'isbn' else yushu_book.search_by_keyword(q, page)
+    books.fill(yushu_book, q)
+    result = json.dumps(books, default=lambda o: o.__dict__)
+    return result
