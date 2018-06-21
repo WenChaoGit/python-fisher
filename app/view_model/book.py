@@ -23,46 +23,7 @@ class BookCollection:
         self.keyword = ''
 
     def fill(self, total_data, keyword):
-        self.total = total_data['total']
+        self.total = total_data.total
         self.keyword = keyword
-        self.books = [BookViewModel() for book in total_data.books]
+        self.books = [BookViewModel(book) for book in total_data.books]
 
-
-class _BookViewModel:
-
-    @classmethod
-    def package_single(cls, data, keyword):
-        result = {
-            'books': [],
-            'total': 0,
-            'keyword': keyword
-        }
-        if data:
-            result['total'] = 1
-            result['books'] = [cls.__cut_data(data)]
-        return result
-
-    @classmethod
-    def package_collection(cls, data, keyword):
-        result = {
-            'books': [],
-            'total': 0,
-            'keyword': keyword
-        }
-        if data:
-            result['books'] = [cls.__cut_data(data) in data]
-            result['total'] = data['total']
-        return result
-
-    @classmethod
-    def __cut_data(cls, data):
-        result = {
-            'title': data['title'],
-            'author': data['author'],
-            'publisher': data['publisher'],
-            'price': data['price'],
-            'pages': data['pages'],
-            'summary': data['summary'],
-            'image': data['image']
-        }
-        return result
