@@ -4,7 +4,7 @@ created by 朝文天下 on
 """
 from app.forms.book import SearchForm
 from app.spider.book_model import YuShuBook
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, flash
 
 from app.libs.helper import is_isbn_or_key
 from app.view_model.book import BookCollection
@@ -22,6 +22,11 @@ def hello():
     })
 
 
+@web.route('/book/<isbn>/detail')
+def book_detail():
+    pass
+
+
 @web.route('/book/search')
 def search():
     # Request Response
@@ -29,7 +34,7 @@ def search():
     books = BookCollection()
     # 验证失败
     if not form.validate():
-        return jsonify(form.errors)
+        flash('搜索的关键字不符合要求,请重新输入')
     # 验证成功
     q = form.q.data.strip()
     page = form.page.data
@@ -38,4 +43,4 @@ def search():
     yushu_book.search_by_isbn(q) if isbn_or_key == 'isbn' else yushu_book.search_by_keyword(q, page)
     books.fill(yushu_book, q)
     result = json.dumps(books, default=lambda o: o.__dict__)
-    return result
+    return render_template('search_result.html', books=result)

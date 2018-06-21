@@ -2,4 +2,4 @@
 .vscode/
 app/__pycache__/
 app/view_model/__pycache__/
-app/web/__pycache__/
+app/web/__pycache__/*
