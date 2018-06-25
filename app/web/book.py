@@ -42,5 +42,5 @@ def search():
     yushu_book = YuShuBook()
     yushu_book.search_by_isbn(q) if isbn_or_key == 'isbn' else yushu_book.search_by_keyword(q, page)
     books.fill(yushu_book, q)
-    result = json.dumps(books, default=lambda o: o.__dict__)
-    return render_template('search_result.html', books=result)
+    # result = json.dumps(books, default=lambda o: o.__dict__)
+    return render_template('search_result.html', books=books)
